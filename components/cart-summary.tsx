@@ -53,7 +53,7 @@ export function CartSummary() {
       return
     }
 
-    // Simulate checkout process
+
     toast({
       title: "Order placed successfully!",
       description: "Thank you for your purchase. You will receive a confirmation email shortly.",
@@ -66,64 +66,65 @@ export function CartSummary() {
   }
 
   return (
-    <Card className="sticky top-4">
+    <Card className="sticky top-4 bg-gray-900 border-gray-700">
       <CardHeader>
-        <CardTitle>Order Summary</CardTitle>
+        <CardTitle className="text-white">Order Summary</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Promo Code */}
+        {/* Promo Code Section */}
         <div className="space-y-2">
-          <Label htmlFor="promo">Promo Code</Label>
+          <Label htmlFor="promo" className="text-gray-200">Promo Code</Label>
           <div className="flex space-x-2">
             <Input
               id="promo"
               placeholder="Enter code"
               value={promoCode}
               onChange={(e) => setPromoCode(e.target.value)}
+              className="bg-gray-800 border-gray-600 text-white placeholder:text-gray-400"
             />
-            <Button variant="outline" onClick={handleApplyPromo}>
+            <Button variant="outline" onClick={handleApplyPromo} className="bg-black hover:bg-gray-800 text-white border-gray-600">
               Apply
             </Button>
           </div>
-          <p className="text-xs text-muted-foreground">Try "SAVE10" for 10% off or "FREESHIP" for free shipping</p>
+          <p className="text-xs text-gray-400">Try "SAVE10" for 10% off or "FREESHIP" for free shipping</p>
         </div>
 
-        <Separator />
+        <Separator className="bg-gray-700" />
 
         {/* Order Details */}
         <div className="space-y-2">
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-sm text-gray-200">
             <span>Subtotal ({items.length} items)</span>
             <span>${total.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-sm text-gray-200">
             <span>Shipping</span>
             <span>{shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-sm text-gray-200">
             <span>Tax</span>
             <span>${tax.toFixed(2)}</span>
           </div>
           {discount > 0 && (
-            <div className="flex justify-between text-sm text-primary">
+            <div className="flex justify-between text-sm text-yellow-500">
               <span>Discount</span>
               <span>-${discount.toFixed(2)}</span>
             </div>
           )}
-          <Separator />
-          <div className="flex justify-between font-bold text-lg">
+          <Separator className="bg-gray-700" />
+          <div className="flex justify-between font-bold text-lg text-white">
             <span>Total</span>
-            <span>${finalTotal.toFixed(2)}</span>
+            <span className="text-yellow-500">${finalTotal.toFixed(2)}</span>
           </div>
         </div>
 
         {/* Checkout Button */}
-        <Button className="w-full" size="lg" onClick={handleCheckout}>
+        <Button className="w-full bg-black hover:bg-gray-800 text-white border border-gray-600 transition-all duration-300" size="lg" onClick={handleCheckout}>
           {isAuthenticated ? "Proceed to Checkout" : "Sign In to Checkout"}
         </Button>
 
         {/* Security Info */}
-        <div className="text-xs text-muted-foreground text-center">
+        <div className="text-xs text-gray-400 text-center">
           <p>🔒 Secure checkout with SSL encryption</p>
           <p>Free returns within 30 days</p>
         </div>

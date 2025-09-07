@@ -12,9 +12,10 @@ import { useToast } from "@/hooks/use-toast"
 
 interface LoginFormProps {
   onToggleMode: () => void
+  onSuccess?: () => void
 }
 
-export function LoginForm({ onToggleMode }: LoginFormProps) {
+export function LoginForm({ onToggleMode, onSuccess }: LoginFormProps) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -32,6 +33,7 @@ export function LoginForm({ onToggleMode }: LoginFormProps) {
         title: "Welcome back!",
         description: "You have successfully logged in.",
       })
+      onSuccess?.()
     } else {
       toast({
         title: "Login failed",
@@ -44,15 +46,15 @@ export function LoginForm({ onToggleMode }: LoginFormProps) {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto bg-transparent border-0 shadow-none">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-        <CardDescription>Sign in to your account to continue shopping</CardDescription>
+        <CardTitle className="text-2xl font-bold text-white">Welcome Back</CardTitle>
+        <CardDescription className="text-gray-300">Sign in to your account to continue shopping</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-white">Email</Label>
             <Input
               id="email"
               type="email"
@@ -60,10 +62,11 @@ export function LoginForm({ onToggleMode }: LoginFormProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-white">Password</Label>
             <Input
               id="password"
               type="password"
@@ -71,14 +74,15 @@ export function LoginForm({ onToggleMode }: LoginFormProps) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400"
             />
           </div>
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="w-full bg-primary text-black hover:bg-primary/80 font-medium" disabled={isLoading}>
             {isLoading ? "Signing in..." : "Sign In"}
           </Button>
         </form>
         <div className="mt-4 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-300">
             Don't have an account?{" "}
             <button type="button" onClick={onToggleMode} className="text-primary hover:underline font-medium">
               Sign up

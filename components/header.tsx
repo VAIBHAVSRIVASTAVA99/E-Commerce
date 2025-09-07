@@ -1,8 +1,8 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import NoSSR from "@/components/no-ssr"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { User, Menu, X, Search } from "lucide-react"
@@ -14,7 +14,15 @@ export function Header() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "signup">("login")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const { user, isAuthenticated, logout } = useAuth()
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleAuthClick = (mode: "login" | "signup") => {
     setAuthMode(mode)
@@ -31,114 +39,108 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
+      <header className="bg-black border-b border-gray-800 sticky top-0 z-50 backdrop-blur-sm">
+        <div className="container">
+          <div className="flex items-center justify-between" style={{ height: '4rem' }}>
             <div className="flex items-center">
-              <Link href="/">
-                <h1 className="text-2xl font-bold text-primary cursor-pointer">ShopHub</h1>
+              <Link href="/" className="navbar-brand">
+                ShopHub
               </Link>
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-foreground hover:text-primary transition-colors">
+              <Link href="/" className="nav-link">
                 Home
               </Link>
-              <Link href="/products" className="text-foreground hover:text-primary transition-colors">
+              <Link href="/products" className="nav-link">
                 Products
               </Link>
               <a
                 href="#categories"
                 onClick={(e) => handleSmoothScroll(e, "categories")}
-                className="text-foreground hover:text-primary transition-colors cursor-pointer"
+                className="nav-link"
               >
                 Categories
               </a>
               <a
                 href="#about"
                 onClick={(e) => handleSmoothScroll(e, "about")}
-                className="text-foreground hover:text-primary transition-colors cursor-pointer"
+                className="nav-link"
               >
                 About
               </a>
             </nav>
 
-            {/* Right side actions */}
             <div className="flex items-center space-x-4">
-              {/* Search */}
-              <Button variant="ghost" size="icon" className="hidden sm:flex">
+              <button className="btn btn-ghost btn-icon hidden sm:flex">
                 <Search className="h-5 w-5" />
-              </Button>
+              </button>
 
-              {/* Cart Drawer */}
               <CartDrawer />
 
-              {/* Auth buttons */}
               {isAuthenticated ? (
                 <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="icon">
+                  <button className="btn btn-ghost btn-icon">
                     <User className="h-5 w-5" />
-                  </Button>
-                  <Button variant="outline" onClick={logout} className="hidden sm:flex bg-transparent">
+                  </button>
+                  <button className="btn btn-outline hidden sm:flex" onClick={logout}>
                     Logout
-                  </Button>
+                  </button>
                 </div>
               ) : (
                 <div className="hidden sm:flex items-center space-x-2">
-                  <Button variant="ghost" onClick={() => handleAuthClick("login")}>
+                  <button className="btn btn-ghost" onClick={() => handleAuthClick("login")}>
                     Login
-                  </Button>
-                  <Button onClick={() => handleAuthClick("signup")}>Sign Up</Button>
+                  </button>
+                  <button className="btn btn-primary" onClick={() => handleAuthClick("signup")}>
+                    Sign Up
+                  </button>
                 </div>
               )}
 
-              {/* Mobile menu button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden"
+              <button
+                className="btn btn-ghost btn-icon md:hidden"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </Button>
+              </button>
             </div>
           </div>
 
-          {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="md:hidden border-t py-4">
+            <div className="md:hidden border-t py-4" style={{ borderColor: 'var(--gray-light)' }}>
               <nav className="flex flex-col space-y-4">
-                <Link href="/" className="text-foreground hover:text-primary transition-colors">
+                <Link href="/" className="nav-link">
                   Home
                 </Link>
-                <Link href="/products" className="text-foreground hover:text-primary transition-colors">
+                <Link href="/products" className="nav-link">
                   Products
                 </Link>
-                <Link href="/cart" className="text-foreground hover:text-primary transition-colors">
+                <Link href="/cart" className="nav-link">
                   Cart
                 </Link>
                 <a
                   href="#categories"
                   onClick={(e) => handleSmoothScroll(e, "categories")}
-                  className="text-foreground hover:text-primary transition-colors cursor-pointer"
+                  className="nav-link"
                 >
                   Categories
                 </a>
                 <a
                   href="#about"
                   onClick={(e) => handleSmoothScroll(e, "about")}
-                  className="text-foreground hover:text-primary transition-colors cursor-pointer"
+                  className="nav-link"
                 >
                   About
                 </a>
                 {!isAuthenticated && (
-                  <div className="flex flex-col space-y-2 pt-4 border-t">
-                    <Button variant="ghost" onClick={() => handleAuthClick("login")}>
+                  <div className="flex flex-col space-y-2 pt-4 border-t" style={{ borderColor: 'var(--gray-light)' }}>
+                    <button className="btn btn-ghost" onClick={() => handleAuthClick("login")}>
                       Login
-                    </Button>
-                    <Button onClick={() => handleAuthClick("signup")}>Sign Up</Button>
+                    </button>
+                    <button className="btn btn-primary" onClick={() => handleAuthClick("signup")}>
+                      Sign Up
+                    </button>
                   </div>
                 )}
               </nav>

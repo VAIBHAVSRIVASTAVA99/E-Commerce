@@ -12,9 +12,10 @@ import { useToast } from "@/hooks/use-toast"
 
 interface SignupFormProps {
   onToggleMode: () => void
+  onSuccess?: () => void
 }
 
-export function SignupForm({ onToggleMode }: SignupFormProps) {
+export function SignupForm({ onToggleMode, onSuccess }: SignupFormProps) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -45,6 +46,7 @@ export function SignupForm({ onToggleMode }: SignupFormProps) {
           title: "Account created!",
           description: "Welcome to our store. You can now start shopping.",
         })
+        onSuccess?.()
       }
     } catch (error) {
       toast({
@@ -58,15 +60,15 @@ export function SignupForm({ onToggleMode }: SignupFormProps) {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto bg-transparent border-0 shadow-none">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
-        <CardDescription>Join us and start your shopping journey</CardDescription>
+        <CardTitle className="text-2xl font-bold text-white">Create Account</CardTitle>
+        <CardDescription className="text-gray-300">Join us and start your shopping journey</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
+            <Label htmlFor="name" className="text-white">Full Name</Label>
             <Input
               id="name"
               type="text"
@@ -74,10 +76,11 @@ export function SignupForm({ onToggleMode }: SignupFormProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-white">Email</Label>
             <Input
               id="email"
               type="email"
@@ -85,10 +88,11 @@ export function SignupForm({ onToggleMode }: SignupFormProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-white">Password</Label>
             <Input
               id="password"
               type="password"
@@ -96,10 +100,11 @@ export function SignupForm({ onToggleMode }: SignupFormProps) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Label htmlFor="confirmPassword" className="text-white">Confirm Password</Label>
             <Input
               id="confirmPassword"
               type="password"
@@ -107,14 +112,15 @@ export function SignupForm({ onToggleMode }: SignupFormProps) {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
+              className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400"
             />
           </div>
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="w-full bg-primary text-black hover:bg-primary/80 font-medium" disabled={isLoading}>
             {isLoading ? "Creating account..." : "Create Account"}
           </Button>
         </form>
         <div className="mt-4 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-300">
             Already have an account?{" "}
             <button type="button" onClick={onToggleMode} className="text-primary hover:underline font-medium">
               Sign in

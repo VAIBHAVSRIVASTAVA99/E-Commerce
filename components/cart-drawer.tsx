@@ -16,19 +16,19 @@ export function CartDrawer() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
+        <Button variant="ghost" size="icon" className="relative text-white hover:text-primary transition-colors">
           <ShoppingCart className="h-5 w-5" />
           {totalItems > 0 && (
-            <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
+            <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-primary text-black">
               {totalItems}
             </Badge>
           )}
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full sm:max-w-lg">
+      <SheetContent className="w-full sm:max-w-lg bg-black border-gray-700">
         <SheetHeader>
-          <SheetTitle className="flex items-center space-x-2">
-            <ShoppingCart className="h-5 w-5" />
+          <SheetTitle className="flex items-center space-x-2 text-white">
+            <ShoppingCart className="h-5 w-5 text-primary" />
             <span>Shopping Cart ({totalItems})</span>
           </SheetTitle>
         </SheetHeader>
@@ -37,10 +37,10 @@ export function CartDrawer() {
           {items.length === 0 ? (
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center space-y-4">
-                <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground" />
-                <p className="text-muted-foreground">Your cart is empty</p>
+                <ShoppingCart className="h-12 w-12 mx-auto text-gray-400" />
+                <p className="text-gray-300">Your cart is empty</p>
                 <Link href="/products">
-                  <Button>Continue Shopping</Button>
+                  <Button className="bg-black hover:bg-gray-800 text-white font-bold transition-all duration-300 border border-gray-600">Continue Shopping</Button>
                 </Link>
               </div>
             </div>
@@ -52,31 +52,31 @@ export function CartDrawer() {
                 ))}
               </div>
 
-              <div className="border-t pt-4 space-y-4">
+              <div className="border-t border-gray-700 pt-4 space-y-4">
                 <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-sm text-gray-300">
                     <span>Subtotal</span>
                     <span>${total.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-sm text-gray-300">
                     <span>Shipping</span>
                     <span>Free</span>
                   </div>
-                  <Separator />
-                  <div className="flex justify-between font-bold">
+                  <Separator className="bg-gray-700" />
+                  <div className="flex justify-between font-bold text-white">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span className="text-primary">${total.toFixed(2)}</span>
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Link href="/cart" className="w-full">
-                    <Button className="w-full">
+                    <Button className="w-full bg-black hover:bg-gray-800 text-white font-bold transition-all duration-300 border border-gray-600">
                       View Cart
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
-                  <Button variant="outline" className="w-full bg-transparent">
+                  <Button variant="outline" className="w-full bg-black hover:bg-gray-800 text-white font-bold transition-all duration-300 border border-gray-600">
                     Checkout
                   </Button>
                 </div>
@@ -85,7 +85,7 @@ export function CartDrawer() {
                   <Button
                     variant="ghost"
                     onClick={clearCart}
-                    className="w-full text-destructive hover:text-destructive"
+                    className="w-full text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-all duration-300"
                   >
                     Clear Cart
                   </Button>

@@ -18,10 +18,18 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
     setMode(mode === "login" ? "signup" : "login")
   }
 
+  const handleSuccess = () => {
+    onClose()
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md p-0 overflow-hidden">
-        {mode === "login" ? <LoginForm onToggleMode={toggleMode} /> : <SignupForm onToggleMode={toggleMode} />}
+      <DialogContent className="sm:max-w-md p-0 overflow-hidden bg-black/90 backdrop-blur-sm border-gray-700">
+        {mode === "login" ? (
+          <LoginForm onToggleMode={toggleMode} onSuccess={handleSuccess} />
+        ) : (
+          <SignupForm onToggleMode={toggleMode} onSuccess={handleSuccess} />
+        )}
       </DialogContent>
     </Dialog>
   )

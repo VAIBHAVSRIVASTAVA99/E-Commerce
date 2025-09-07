@@ -21,31 +21,31 @@ export function ProductGrid({ products, totalProducts, onClearFilters }: Product
 
   return (
     <div className="space-y-6">
-      {/* Header with sorting and view options */}
+      {}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-gray-300">
           Showing {products.length} of {totalProducts} products
         </div>
 
         <div className="flex items-center space-x-4">
-          {/* View mode toggle */}
-          <div className="flex items-center border rounded-lg p-1">
-            <Button variant={viewMode === "grid" ? "default" : "ghost"} size="sm" onClick={() => setViewMode("grid")}>
+          {/* View Mode Toggle */}
+          <div className="flex items-center border border-gray-600 rounded-lg p-1 bg-gray-800">
+            <Button variant={viewMode === "grid" ? "default" : "ghost"} size="sm" onClick={() => setViewMode("grid")} className={viewMode === "grid" ? "bg-black text-white" : "text-gray-300 hover:text-white hover:bg-gray-700"}>
               <Grid className="h-4 w-4" />
             </Button>
-            <Button variant={viewMode === "list" ? "default" : "ghost"} size="sm" onClick={() => setViewMode("list")}>
+            <Button variant={viewMode === "list" ? "default" : "ghost"} size="sm" onClick={() => setViewMode("list")} className={viewMode === "list" ? "bg-black text-white" : "text-gray-300 hover:text-white hover:bg-gray-700"}>
               <List className="h-4 w-4" />
             </Button>
           </div>
 
-          {/* Sort dropdown */}
+          {/* Sort Dropdown */}
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-48">
+            <SelectTrigger className="w-48 bg-gray-800 border-gray-600 text-white">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-gray-800 border-gray-600">
               {sortOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem key={option.value} value={option.value} className="text-white hover:bg-gray-700">
                   {option.label}
                 </SelectItem>
               ))}
@@ -54,7 +54,7 @@ export function ProductGrid({ products, totalProducts, onClearFilters }: Product
         </div>
       </div>
 
-      {/* Products grid */}
+      {}
       {sortedProducts.length > 0 ? (
         <div
           className={
@@ -67,7 +67,7 @@ export function ProductGrid({ products, totalProducts, onClearFilters }: Product
         </div>
       ) : (
         <div className="text-center py-12">
-          <div className="text-muted-foreground mb-4">No products found matching your criteria.</div>
+          <div className="text-gray-300 mb-4">No products found matching your criteria.</div>
           {onClearFilters && (
             <Button variant="outline" onClick={onClearFilters}>
               Clear Filters

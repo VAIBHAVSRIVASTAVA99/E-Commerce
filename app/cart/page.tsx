@@ -13,22 +13,22 @@ export default function CartPage() {
   const { items, clearCart } = useCart()
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Header />
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Page header */}
+        {}
         <div className="mb-8">
           <div className="flex items-center space-x-4 mb-4">
             <Link href="/products">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-white hover:text-primary hover:bg-gray-800">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Continue Shopping
               </Button>
             </Link>
           </div>
-          <h1 className="text-3xl lg:text-4xl font-bold">Shopping Cart</h1>
-          <p className="text-muted-foreground text-lg">
+          <h1 className="text-3xl lg:text-4xl font-bold text-white">Shopping Cart</h1>
+          <p className="text-gray-300 text-lg">
             {items.length === 0
               ? "Your cart is empty"
               : `${items.length} item${items.length !== 1 ? "s" : ""} in your cart`}
@@ -36,18 +36,18 @@ export default function CartPage() {
         </div>
 
         {items.length === 0 ? (
-          /* Empty cart state */
+          
           <div className="text-center py-16">
-            <ShoppingCart className="h-24 w-24 mx-auto text-muted-foreground mb-6" />
-            <h2 className="text-2xl font-semibold mb-4">Your cart is empty</h2>
-            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+            <ShoppingCart className="h-24 w-24 mx-auto text-gray-400 mb-6" />
+            <h2 className="text-2xl font-semibold mb-4 text-white">Your cart is empty</h2>
+            <p className="text-gray-300 mb-8 max-w-md mx-auto">
               Looks like you haven't added any items to your cart yet. Start shopping to fill it up!
             </p>
             <div className="space-y-4">
               <Link href="/products">
-                <Button size="lg">Browse Products</Button>
+                <Button size="lg" className="bg-black hover:bg-gray-800 text-white font-bold transition-all duration-300 border border-gray-600">Browse Products</Button>
               </Link>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-gray-300">
                 <p>Popular categories:</p>
                 <div className="flex justify-center space-x-4 mt-2">
                   <Link href="/products" className="hover:text-primary">
@@ -64,14 +64,14 @@ export default function CartPage() {
             </div>
           </div>
         ) : (
-          /* Cart with items */
+          
           <div className="grid lg:grid-cols-3 gap-8">
-            {/* Cart items */}
+            {}
             <div className="lg:col-span-2 space-y-4">
               <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold">Items in your cart</h2>
+                <h2 className="text-xl font-semibold text-white">Items in your cart</h2>
                 {items.length > 0 && (
-                  <Button variant="ghost" onClick={clearCart} className="text-destructive hover:text-destructive">
+                  <Button variant="ghost" onClick={clearCart} className="text-red-400 hover:text-red-300 hover:bg-red-900/20">
                     Clear All
                   </Button>
                 )}
@@ -83,10 +83,10 @@ export default function CartPage() {
                 ))}
               </div>
 
-              {/* Continue shopping */}
-              <div className="pt-6 border-t">
+              {}
+              <div className="pt-6 border-t border-gray-700">
                 <Link href="/products">
-                  <Button variant="outline">
+                  <Button variant="outline" className="bg-black hover:bg-gray-800 text-white font-bold transition-all duration-300 border border-gray-600">
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Continue Shopping
                   </Button>
@@ -94,7 +94,7 @@ export default function CartPage() {
               </div>
             </div>
 
-            {/* Cart summary */}
+            {}
             <div className="lg:col-span-1">
               <CartSummary />
             </div>

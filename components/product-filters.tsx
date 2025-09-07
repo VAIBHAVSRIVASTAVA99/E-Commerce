@@ -42,9 +42,9 @@ export function ProductFilters({ filters, onFiltersChange, onClearFilters, isOpe
 
   return (
     <div className="space-y-4">
-      {/* Mobile filter toggle */}
+      {}
       <div className="lg:hidden">
-        <Button variant="outline" onClick={onToggle} className="w-full justify-between bg-transparent">
+        <Button variant="outline" onClick={onToggle} className="w-full justify-between bg-black hover:bg-gray-800 text-white font-bold transition-all duration-300 border border-gray-600">
           <div className="flex items-center space-x-2">
             <Filter className="h-4 w-4" />
             <span>Filters</span>
@@ -53,35 +53,36 @@ export function ProductFilters({ filters, onFiltersChange, onClearFilters, isOpe
         </Button>
       </div>
 
-      {/* Filters panel */}
+      {}
       <div className={`space-y-6 ${!isOpen ? "hidden lg:block" : ""}`}>
-        {/* Search */}
-        <Card>
+        {}
+        <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700/50">
           <CardHeader>
-            <CardTitle className="text-lg">Search</CardTitle>
+            <CardTitle className="text-lg text-white">Search</CardTitle>
           </CardHeader>
           <CardContent>
             <Input
               placeholder="Search products..."
               value={filters.searchQuery}
               onChange={(e) => updateFilter("searchQuery", e.target.value)}
+              className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-primary"
             />
           </CardContent>
         </Card>
 
-        {/* Category */}
-        <Card>
+        {}
+        <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700/50">
           <CardHeader>
-            <CardTitle className="text-lg">Category</CardTitle>
+            <CardTitle className="text-lg text-white">Category</CardTitle>
           </CardHeader>
           <CardContent>
             <Select value={filters.category} onValueChange={(value) => updateFilter("category", value)}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-gray-800/50 border-gray-600 text-white">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-gray-800 border-gray-600">
                 {categories.map((category) => (
-                  <SelectItem key={category} value={category}>
+                  <SelectItem key={category} value={category} className="text-white hover:bg-gray-700">
                     {category}
                   </SelectItem>
                 ))}
@@ -90,10 +91,10 @@ export function ProductFilters({ filters, onFiltersChange, onClearFilters, isOpe
           </CardContent>
         </Card>
 
-        {/* Price Range */}
-        <Card>
+        {}
+        <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700/50">
           <CardHeader>
-            <CardTitle className="text-lg">Price Range</CardTitle>
+            <CardTitle className="text-lg text-white">Price Range</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="px-2">
@@ -106,40 +107,40 @@ export function ProductFilters({ filters, onFiltersChange, onClearFilters, isOpe
                 className="w-full"
               />
             </div>
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <div className="flex items-center justify-between text-sm text-gray-300">
               <span>${localPriceRange[0]}</span>
               <span>${localPriceRange[1]}</span>
             </div>
           </CardContent>
         </Card>
 
-        {/* Rating */}
-        <Card>
+        {}
+        <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700/50">
           <CardHeader>
-            <CardTitle className="text-lg">Minimum Rating</CardTitle>
+            <CardTitle className="text-lg text-white">Minimum Rating</CardTitle>
           </CardHeader>
           <CardContent>
             <Select
               value={filters.minRating.toString()}
               onValueChange={(value) => updateFilter("minRating", Number.parseFloat(value))}
             >
-              <SelectTrigger>
+              <SelectTrigger className="bg-gray-800/50 border-gray-600 text-white">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0">Any Rating</SelectItem>
-                <SelectItem value="3">3+ Stars</SelectItem>
-                <SelectItem value="4">4+ Stars</SelectItem>
-                <SelectItem value="4.5">4.5+ Stars</SelectItem>
+              <SelectContent className="bg-gray-800 border-gray-600">
+                <SelectItem value="0" className="text-white hover:bg-gray-700">Any Rating</SelectItem>
+                <SelectItem value="3" className="text-white hover:bg-gray-700">3+ Stars</SelectItem>
+                <SelectItem value="4" className="text-white hover:bg-gray-700">4+ Stars</SelectItem>
+                <SelectItem value="4.5" className="text-white hover:bg-gray-700">4.5+ Stars</SelectItem>
               </SelectContent>
             </Select>
           </CardContent>
         </Card>
 
-        {/* Availability */}
-        <Card>
+        {}
+        <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700/50">
           <CardHeader>
-            <CardTitle className="text-lg">Availability</CardTitle>
+            <CardTitle className="text-lg text-white">Availability</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center space-x-2">
@@ -148,14 +149,14 @@ export function ProductFilters({ filters, onFiltersChange, onClearFilters, isOpe
                 checked={filters.inStockOnly}
                 onCheckedChange={(checked) => updateFilter("inStockOnly", checked)}
               />
-              <Label htmlFor="inStock">In Stock Only</Label>
+              <Label htmlFor="inStock" className="text-white">In Stock Only</Label>
             </div>
           </CardContent>
         </Card>
 
-        {/* Clear Filters */}
+        {}
         {activeFiltersCount > 0 && (
-          <Button variant="outline" onClick={onClearFilters} className="w-full bg-transparent">
+          <Button variant="outline" onClick={onClearFilters} className="w-full bg-black hover:bg-gray-800 text-white font-bold transition-all duration-300 border border-gray-600">
             <X className="h-4 w-4 mr-2" />
             Clear All Filters
           </Button>

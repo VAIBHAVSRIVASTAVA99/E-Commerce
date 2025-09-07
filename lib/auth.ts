@@ -9,46 +9,107 @@ export interface AuthState {
   isAuthenticated: boolean
 }
 
-// Mock user storage (in a real app, this would be a database)
-const users: (User & { password: string })[] = []
+import { config } from './config'
+
+const API_BASE_URL = config.API_BASE_URL
 
 export const authService = {
   async login(email: string, password: string): Promise<User | null> {
-    const user = users.find((u) => u.email === email && u.password === password)
-    if (user) {
-      const { password: _, ...userWithoutPassword } = user
-      localStorage.setItem("auth_user", JSON.stringify(userWithoutPassword))
-      return userWithoutPassword
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Login failed')
+      }
+
+      const data = await response.json()
+      
+
+      localStorage.setItem("auth_token", data.token)
+      localStorage.setItem("auth_user", JSON.stringify(data.user))
+      
+      return data.user
+    } catch (error) {
+      console.error('Login error:', error)
+      throw error
     }
-    return null
   },
 
   async signup(email: string, password: string, name: string): Promise<User | null> {
-    // Check if user already exists
-    if (users.find((u) => u.email === email)) {
-      throw new Error("User already exists")
-    }
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, name }),
+      })
 
-    const newUser = {
-      id: Math.random().toString(36).substr(2, 9),
-      email,
-      password,
-      name,
-    }
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Registration failed')
+      }
 
-    users.push(newUser)
-    const { password: _, ...userWithoutPassword } = newUser
-    localStorage.setItem("auth_user", JSON.stringify(userWithoutPassword))
-    return userWithoutPassword
+      const data = await response.json()
+      
+
+      localStorage.setItem("auth_token", data.token)
+      localStorage.setItem("auth_user", JSON.stringify(data.user))
+      
+      return data.user
+    } catch (error) {
+      console.error('Signup error:', error)
+      throw error
+    }
   },
 
   logout(): void {
+    localStorage.removeItem("auth_token")
     localStorage.removeItem("auth_user")
   },
 
   getCurrentUser(): User | null {
     if (typeof window === "undefined") return null
-    const stored = localStorage.getItem("auth_user")
-    return stored ? JSON.parse(stored) : null
+    try {
+      const stored = localStorage.getItem("auth_user")
+      if (!stored || stored === "undefined" || stored === "null") {
+        return null
+      }
+      return JSON.parse(stored)
+    } catch (error) {
+      console.error('Error parsing stored user data:', error)
+      // Clear invalid data
+      localStorage.removeItem("auth_user")
+      localStorage.removeItem("auth_token")
+      return null
+    }
+  },
+
+  getToken(): string | null {
+    if (typeof window === "undefined") return null
+    return localStorage.getItem("auth_token")
+  },
+
+  async verifyToken(): Promise<boolean> {
+    const token = this.getToken()
+    if (!token) return false
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/verify`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+      return response.ok
+    } catch {
+      return false
+    }
   },
 }
