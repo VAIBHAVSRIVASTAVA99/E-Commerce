@@ -5,10 +5,16 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { AuthProvider } from "@/hooks/use-auth"
 import { CartProvider } from "@/hooks/use-cart"
-import { Toaster } from "@/components/ui/toaster"
+import dynamic from 'next/dynamic'
 import { ThemeProvider } from "@/components/theme-provider-client"
 import { Suspense } from "react"
 import "./globals.css"
+
+// Import the client-only Toaster component
+const Toaster = dynamic(() => import('@/components/client-only-toaster'), {
+  ssr: false,
+  loading: () => null,
+})
 
 export const metadata: Metadata = {
   title: "ShopHub - Your Premium E-commerce Destination",

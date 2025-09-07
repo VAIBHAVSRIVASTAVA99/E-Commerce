@@ -1,4 +1,4 @@
-# ShopHub - E-commerce Application
+# ShopHub E-commerce
 
 A modern, full-stack e-commerce application built with Next.js 14, featuring JWT authentication, product management, and shopping cart functionality.
 
