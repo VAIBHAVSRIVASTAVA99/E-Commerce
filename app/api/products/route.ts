@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/database';
 import Product from '@/lib/models/Product';
-const { mockProducts } = require('@/lib/mock-products');
+import { mockProducts } from '@/lib/mock-products';
 
 export async function GET(request: NextRequest) {
   try {
