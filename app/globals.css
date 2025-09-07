@@ -1,27 +1,126 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Updated to sophisticated black theme with gold accents */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1c1c1c;
+  --card: #f8f9fa;
+  --card-foreground: #1c1c1c;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1c;
+  --primary: #ffcc00;
+  --primary-foreground: #000000;
+  --secondary: #f0f0f0;
+  --secondary-foreground: #1c1c1c;
+  --muted: #f0f0f0;
+  --muted-foreground: #6b7280;
+  --accent: #ffcc00;
+  --accent-foreground: #000000;
+  --destructive: #ff4d4d;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #f8f9fa;
+  --ring: #ffcc00;
+  --chart-1: #ffcc00;
+  --chart-2: #1c1c1c;
+  --chart-3: #ff4d4d;
+  --chart-4: #f59e0b;
+  --chart-5: #6b7280;
+  --radius: 0.5rem;
+  --sidebar: #f8f9fa;
+  --sidebar-foreground: #1c1c1c;
+  --sidebar-primary: #ffcc00;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #ffcc00;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #ffcc00;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  /* Implemented sophisticated black theme with gold accents */
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #1c1c1c;
+  --card-foreground: #ffffff;
+  --popover: #1c1c1c;
+  --popover-foreground: #ffffff;
+  --primary: #ffcc00;
+  --primary-foreground: #000000;
+  --secondary: #374151;
+  --secondary-foreground: #ffffff;
+  --muted: #374151;
+  --muted-foreground: #d1d5db;
+  --accent: #ffcc00;
+  --accent-foreground: #000000;
+  --destructive: #ff4d4d;
+  --destructive-foreground: #ffffff;
+  --border: #374151;
+  --input: #1c1c1c;
+  --ring: #ffcc00;
+  --chart-1: #ffcc00;
+  --chart-2: #ffffff;
+  --chart-3: #ff4d4d;
+  --chart-4: #f59e0b;
+  --chart-5: #9ca3af;
+  --sidebar: #1c1c1c;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #000000;
+  --sidebar-primary-foreground: #ffcc00;
+  --sidebar-accent: #ffcc00;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #374151;
+  --sidebar-ring: #ffcc00;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  body {
+    @apply bg-background text-foreground;
   }
 }
